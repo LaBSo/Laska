@@ -37,7 +37,7 @@ class UnitTests {
     //println("Net working capital is " + x.formatter.format(NWC))
   }
   @Test def testK2T3() {
-    
+   
     val x = new Kaavat
     val Sales = 162.5
     val COGS = 55.7
@@ -48,7 +48,18 @@ class UnitTests {
     val NI = x.NetIncome(Sales, COGS, Depriciation, Tax) 
     val FC = x.FreeCashFlow(NI,Depriciation, Expenditures, IWC)
 //    println("Free Cash Flow is " + "%.4f".format(FC))
-//    println("Net income is " + "%.4f".format(NI))
-   
+//    println("Net income is " + "%.4f".format(NI))  
   }
+   @Test def testK2T4() {
+   
+    val x = new Kaavat
+    val z =  List[Double](-161000.0,10000.0,93000.0,195000.0)
+    val FCF = z.last
+    val r = 0.12
+    val g = 0.04
+    val CV = x.ContinuationValue(FCF, r, g)
+    val NPV = x.NPVc(z, r, CV)
+    println("CV  is " + x.formatter.format(CV))
+    println("NPV  is " + x.formatter.format(NPV))
+   }
 }

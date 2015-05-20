@@ -46,5 +46,19 @@ class Kaavat {
 //  - Increases in Net Working Capital
   def FreeCashFlow (netIncome:Double, Depriciation:Double, Expenditures:Double, IWC:Double) = (netIncome + Depriciation) - (Expenditures +IWC)
   
+// Continuation value (Present Value) = FreeCashFlow/ (r-g)
+//r =   interest rate, g = growth rate
+  def ContinuationValue (FCF:Double,r:Double,g:Double):Double= (FCF*(1+g))/(r-g)
   
+  def NPVc(Years:List[Double],r:Double,CV:Double):Double = {
+    var t = 0
+    var NPV = 0.0
+    for (x<-Years){
+      t+=1
+      NPV += (x/Math.pow((1+r),t))
+    }
+    //With Continuationvalue
+    NPV+=(CV/Math.pow((1+r),t))
+    NPV
+  }
 }
