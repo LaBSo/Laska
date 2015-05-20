@@ -1,1 +1,1 @@
-# Koulukurssin harjoitustyöt tehtynä scalalla
+# Koulukurssin harjoitustyöt
