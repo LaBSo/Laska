@@ -3,7 +3,7 @@ class Kaavat {
   val formatter = java.text.NumberFormat.getIntegerInstance
   //Annuity formula FV = FutureValue, C = annual savings, r = rate of interest /year, n = number of years
   //val y = x.FV(7500,0.09,31)
-  def FV(C: Double, r: Double, n: Double):Double = (C * (1 / r) * (Math.pow((1 + r), n) - 1))
+  def FVa(C: Double, r: Double, n: Double):Double = (C * (1 / r) * (Math.pow((1 + r), n) - 1))
   
   //Counting annual withdrawal PV = present value, r = rate of interest /year (0.xx), n = number of years
   def PMT(PV: Double, r: Double, n: Double):Double =  PV / ((1 / r) * (1 - (1 / (Math.pow((1 + r), n)))))
@@ -50,15 +50,38 @@ class Kaavat {
 //r =   interest rate, g = growth rate
   def ContinuationValue (FCF:Double,r:Double,g:Double):Double= (FCF*(1+g))/(r-g)
   
-  def NPVc(Years:List[Double],r:Double,CV:Double):Double = {
-    var t = 0
+  def NPV(Years:List[Double],r:Double,CV:Double, StartingYear:Double):Double = {
+   var t = StartingYear
     var NPV = 0.0
     for (x<-Years){
       t+=1
-      NPV += (x/Math.pow((1+r),t))
+      if (t > 0)NPV += (x/Math.pow((1+r),t))
+      else NPV +=x      
     }
     //With Continuationvalue
     NPV+=(CV/Math.pow((1+r),t))
     NPV
   }
+  def NPVc(Years:List[Double],r:Double,CV:Double):Double =NPV(Years, r, CV, 0)
+  //CashValue = Cash + NPV of projects
+  def CashValue (NPV:Double, Cash:Double):Double = NPV + Cash
+  //Dividend yield = Div/P ;Div = Dividend, P = current price
+  def DividendYieldProsent(Div:Double, P:Double):Double  = (Div/P)*100 
+  //Capital gain rate = (P1 - P0) / P0; P0 = current price, P1 = new market price
+  def CapitalGainRate(P0:Double, P1:Double):Double = ((P1 - P0) / P0)*100
+  //Equity cost of capital = Dividend yield + Capital gain rate
+  def ECC (Div:Double, gain:Double):Double = Div + gain
+  // PresentValue for stock with Dividend
+  def PresentValue(P:Double, Div:List[Double], r :Double):Double = {
+    var result = 0.00
+    for (x <- 1 to Div.length +1){
+      
+      if (Div.length > 1)result += Div.head/Math.pow((1+r),x)
+      else result += (Div.head + P)/Math.pow((1+r),x)
+       Div.drop(0)
+    }
+    result
+  }
+  
 }
+ 
