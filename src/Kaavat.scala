@@ -89,10 +89,12 @@ class Kaavat {
    val V0= PresentValue(0, FCF, r)+(FCF.last*(1 + g))/(Math.pow((1+r), FCF.length)*(r-g))
    return V0
   }
+  def enterpriseValueStock(MarketValue:Double, Debt:Double, Cash: Double) = MarketValue + Debt - Cash
   def sharePrice(V0:Double, Cash: Double, Debt:Double, SharesOutstanding:Double):Double ={
     val P0 = (V0+Cash - Debt)/SharesOutstanding
     return P0
   }
+  def marketValue(SharesOutstanding: Double, price: Double):Double = SharesOutstanding*price
   
 }
  
