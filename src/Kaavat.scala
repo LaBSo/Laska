@@ -74,13 +74,24 @@ class Kaavat {
   // PresentValue for stock with Dividend
   def PresentValue(P:Double, Div:List[Double], r :Double):Double = {
     var result = 0.00
-    for (x <- 1 to Div.length +1){
-      
-      if (Div.length > 1)result += Div.head/Math.pow((1+r),x)
-      else result += (Div.head + P)/Math.pow((1+r),x)
-       Div.drop(0)
+    var div = Div
+    for (x <- 1 to Div.length ){
+      if (div.length > 1)result += div.head/(Math.pow((1+r),x))
+      else {
+        result += (div.head + P)/(Math.pow((1+r),x))}
+     div =  div.tail
+     
     }
     result
+  }
+  //FCF free cash flow by year, r = cost of capital, g = industry growth rate
+  def enterpriseValue(FCF:List[Double],r:Double,g:Double):Double ={
+   val V0= PresentValue(0, FCF, r)+(FCF.last*(1 + g))/(Math.pow((1+r), FCF.length)*(r-g))
+   return V0
+  }
+  def sharePrice(V0:Double, Cash: Double, Debt:Double, SharesOutstanding:Double):Double ={
+    val P0 = (V0+Cash - Debt)/SharesOutstanding
+    return P0
   }
   
 }
