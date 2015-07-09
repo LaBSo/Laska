@@ -95,6 +95,9 @@ class Kaavat {
     return P0
   }
   def marketValue(SharesOutstanding: Double, price: Double):Double = SharesOutstanding*price
-  
+  //Constant Dividend growth model P0 = Div1/(r-g), r = cost of capital, g = dividend growth rate
+  def constantDividendSharePrice (Div1: Double, r:Double,g:Double):Double =  Div1/(r-g)
+  //Constant Dividend growth model P0 = Div1/(r-g), g = r - Div1/P0
+  def constantDividendGrowthRate (r:Double,Div1:Double,P0:Double):Double = r - Div1/P0
 }
  
