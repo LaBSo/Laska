@@ -99,5 +99,15 @@ class Kaavat {
   def constantDividendSharePrice (Div1: Double, r:Double,g:Double):Double =  Div1/(r-g)
   //Constant Dividend growth model P0 = Div1/(r-g), g = r - Div1/P0
   def constantDividendGrowthRate (r:Double,Div1:Double,P0:Double):Double = r - Div1/P0
+  //Unlevered
+  def marketValueProbability (Value:List[Double],Prob:List[Double]):Double = (Value zip Prob).map(x => x._1 * x._2).sum
+  // Current value of debt = Debt /(1 + Risk free rate%)
+  def currentValueDebt(Debt:Double, riskFree:Double):Double = Debt/(1+riskFree)
+  
+  def currentValueLeveredEquity(UnleveredEquity:Double,Debt:Double):Double = UnleveredEquity-Debt
+  
+  def expectedReturn(Equity:Double, ExpectedEquity:Double):Double = (ExpectedEquity/Equity)-1 
+  
+  def realizedReturn(MarketValue:Double, Equity:Double) = (MarketValue/Equity) -1
 }
  
