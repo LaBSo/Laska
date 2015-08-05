@@ -108,6 +108,11 @@ class Kaavat {
   
   def expectedReturn(Equity:Double, ExpectedEquity:Double):Double = (ExpectedEquity/Equity)-1 
   
-  def realizedReturn(MarketValue:Double, Equity:Double) = (MarketValue/Equity) -1
+  def realizedReturn(MarketValue:Double, Equity:Double):Double = (MarketValue/Equity) -1
+  
+  def beta(VolatilyOfPortfolio:Double, Corr:Double,VolatilyOfAsset:Double):Double = VolatilyOfAsset*Corr/VolatilyOfPortfolio
+  
+  def expectedReturn(B:Double, riskFree:Double,exp:Double):Double = riskFree+B*(exp-riskFree)
+  
 }
  
